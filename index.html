@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Analisador Léxico</title>
-    <link rel="stylesheet" href="assets/css/bootswatch.min.css">
+    <link rel="stylesheet" href="assets/css/bootswatch-paper.min.css">
     <link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css">
   </head>
@@ -26,7 +26,7 @@
 	</header>
 
 	<div class="container-fluid">
-		<div class="col-lg-3 col-lg-offset-1">
+		<div class="col-lg-3">
 			<div class="well bs-component">
 				<form class="form-horizontal well">
 				  	<fieldset>
@@ -39,9 +39,88 @@
 				</form>
 			</div>
 		</div>
+		
+		<div class="col-lg-9">
+			<div class="form-group">
+				<input type="text" class="form-control" id="inputDefault" placeholder="digite um token">
+			</div>
+		</div>
+
+		<div class="col-lg-9" id="table_elements">
+			<div class="well bs-component table-responsive">
+				<!-- <table class="table table table-striped table-hover">
+				  	<thead>
+					    <tr>
+							<th>#</th>
+							<th>Column heading</th>
+							<th>Column heading</th>
+							<th>Column heading</th>
+					    </tr>
+				  	</thead>
+		 		 	<tbody>
+					    <tr>
+							<td>1</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr>
+							<td>2</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr class="info">
+							<td>3</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr class="success">
+							<td>4</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr class="danger">
+							<td>5</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr class="warning">
+							<td>6</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+					    <tr class="active">
+							<td>7</td>
+							<td>Column content</td>
+							<td>Column content</td>
+							<td>Column content</td>
+					    </tr>
+				  	</tbody>
+				</table>  -->
+				<table class="table table table-hover table-alphabet">
+				  	<thead>
+					    <tr>
+							<th>#</th>
+					    </tr>
+				  	</thead>
+		 		 	<tbody>
+		 		 		<tr>
+					    </tr>
+				  	</tbody>
+				</table> 
+			</div>
+		</div>
+
+	</div>
+
 	<footer>
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="node_modules/select2/dist/js/select2.full.min.js"></script>
+		<script src="node_modules/select2/dist/js/select2.min.js"></script>
 		<script src="assets/js/app.js"></script>
 		<script type="text/javascript">
     		$('select').select2();
