@@ -38,25 +38,29 @@ function getAlphabet(arrTokens){
 
 
 function formatTable(alphabet, arrTokens){
-	$(".table-alphabet tbody").html("");
-	var q = 0;
-	for (var i = 0; i < arrTokens.length; i++) {
-		for(var indexLetter = 0; indexLetter < arrTokens[i].length; indexLetter++) {
-			$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + indexLetter + '><td><b>q' + q++ + '</b></td></tr>');
-		}
-		$(".table-alphabet tbody").append('<tr class=element-' + i + '-end><td><b>q' + q++ + '*</b></td></tr>');
-		for (var k = 0; k < alphabet.length; k++) { 
-			$(".element-" + k + "-row-").append("<td></td>");	
-		}
-	}
 
-	console.log(alphabet);
 	$(".table-alphabet thead tr").html("");
 	$(".table-alphabet thead tr").append("<th>#</th>")
 	alphabet.sort();
 	for (var i = 0; i < alphabet.length; i++) { 
 		$(".table-alphabet thead tr").append("<th>" + alphabet[i] + "</th>");	
 	}
+
+	$(".table-alphabet tbody").html("");
+	var q = 0;
+	for (var i = 0; i < arrTokens.length; i++) {
+		for(var row = 0; row <= arrTokens[i].length; row++) {
+			if(row != arrTokens[i].length) {
+				$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + row + '><td>q' + q++ + '</td></tr>');
+			} else {
+				$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + row + '><td>q' + q++ + '*</td></tr>');
+			}
+			for (var col = 0; col < alphabet.length; col++) {
+				$(".element-" + i + "-row-" + row).append("<td class=table-bordered></td>");		
+			}
+		}
+	}
+	
 	$('.select2-selection__choice__remove').click( function() {
 		setTimeout(function() { 
 			getTokens(); 
