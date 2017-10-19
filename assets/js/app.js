@@ -17,34 +17,6 @@ $( document ).ready(function() {
 
 
 
-	var tree = new Tree('0');
-	tree._root.children.push(new Node('two'));
-	tree._root.children[0].parent = tree;
-
-	tree._root.children.push(new Node('three'));
-	tree._root.children[1].parent = tree;
-
-	tree._root.children.push(new Node('four'));
-	tree._root.children[2].parent = tree;
-
-	tree._root.children[0].children.push(new Node('five'));
-	tree._root.children[0].children[0].parent = tree._root.children[0];
-
-	tree._root.children[0].children.push(new Node('six'));
-	tree._root.children[0].children[1].parent = tree._root.children[0];
-
-	tree._root.children[2].children.push(new Node('seven'));
-	tree._root.children[2].children[0].parent = tree._root.children[2];
-
-
-	tree.traverseBF(function(node){
-		console.log(node.data);
-	})
-
-	console.log("tree", tree);
-
-
-
 });
 
 function getTokens(){
@@ -54,6 +26,8 @@ function getTokens(){
 	});
 	$('#table_elements').fadeIn('slow');
 	getAlphabet(arrTokens);
+
+	//map(arrTokens);
 }
 
 function getAlphabet(arrTokens){
@@ -108,8 +82,6 @@ function formatTable(alphabet, arrTokens){
 }
 
 
-
-
 function Node(data) {
 	this.data = data;
 	this.parent = null;
@@ -131,7 +103,6 @@ Tree.prototype.traverseDF = function(callback) {
 	})(this._root);
 };
 
-
 Tree.prototype.traverseBF = function(callback) {
     var queue = new Queue();
      
@@ -148,3 +119,37 @@ Tree.prototype.traverseBF = function(callback) {
         currentTree = queue.dequeue();
     }
 };
+/*
+var mapEstados = new Map();
+
+function map(arrTokens) {
+	var q = 0;
+	var simbols = [];
+	var add = true;
+	for(var key in arrTokens){
+		console.log(key);
+		if (key > 0){
+	 		add = false;
+	 	}
+		for(i = 0; i < arrTokens[key].length; i++){
+			if (add) {
+				console.log("entrou if ");
+				mapEstados.set(q++, [arrTokens[key][i]]);
+			} else {
+				console.log("entrou else ");
+				for (var [indice, value] of mapEstados){
+					console.log("entrou bodega ", indice);
+					if (value.indexOf(arrTokens[key][i]) == -1){
+						value.push(arrTokens[key][i]);
+						mapEstados.set(indice, value);
+						add = true;
+						break;
+					}
+					add = true;
+				}
+			}
+		}
+	}
+
+	console.log(mapEstados);
+}*/
