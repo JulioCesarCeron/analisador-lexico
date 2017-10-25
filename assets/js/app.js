@@ -27,7 +27,7 @@ function getTokens(){
 	$('#table_elements').fadeIn('slow');
 	getAlphabet(arrTokens);
 
-	//map(arrTokens);
+	map(arrTokens);
 }
 
 function getAlphabet(arrTokens){
@@ -64,13 +64,13 @@ function formatTable(alphabet, arrTokens){
 				} else {
 					$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + row + '><td>q' + q++ + '*</td></tr>');
 				}
-			for (var col = 0; col < alphabet.length; col++) {
-				if (alphabet[col] == arrTokens[i][row]){
-					$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + nextQ++ + '</td>');		
-				} else {
-					$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
-				}
-			}
+			// for (var col = 0; col < alphabet.length; col++) {
+			// 	if (alphabet[col] == arrTokens[i][row]){
+			// 		$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + nextQ++ + '</td>');		
+			// 	} else {
+			// 		$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
+			// 	}
+			// }
 		}
 	}
 	
@@ -82,44 +82,6 @@ function formatTable(alphabet, arrTokens){
 }
 
 
-function Node(data) {
-	this.data = data;
-	this.parent = null;
-	this.children = []
-}
-
-function Tree(data) {
-	var node = new Node(data);
-	this._root = node;
-}
-
-Tree.prototype.traverseDF = function(callback) {
-	(function recurse(curentNode) {
-		for (var i = 0, length = curentNode.children.length; i < length; i++) {
-			recurse(curentNode.children[i]);
-		}
-
-		callback(curentNode);
-	})(this._root);
-};
-
-Tree.prototype.traverseBF = function(callback) {
-    var queue = new Queue();
-     
-    queue.enqueue(this._root);
- 
-    currentTree = queue.dequeue();
- 
-    while(currentTree){
-        for (var i = 0, length = currentTree.children.length; i < length; i++) {
-            queue.enqueue(currentTree.children[i]);
-        }
- 
-        callback(currentTree);
-        currentTree = queue.dequeue();
-    }
-};
-/*
 var mapEstados = new Map();
 
 function map(arrTokens) {
@@ -137,19 +99,25 @@ function map(arrTokens) {
 				mapEstados.set(q++, [arrTokens[key][i]]);
 			} else {
 				console.log("entrou else ");
-				for (var [indice, value] of mapEstados){
-					console.log("entrou bodega ", indice);
-					if (value.indexOf(arrTokens[key][i]) == -1){
-						value.push(arrTokens[key][i]);
-						mapEstados.set(indice, value);
-						add = true;
-						break;
-					}
+				if (mapEstados.get(i).indexOf(arrTokens[key][i]) == -1){
+					mapEstados.get(i).push(arrTokens[key][i]);
 					add = true;
 				}
+				
+				// for (var [indice, value] of mapEstados){
+				// 	console.log("entrou bodega ", indice);
+				// 	console.log("valor ", arrTokens[key][i]);
+				// 	if (value.indexOf(arrTokens[key][i]) == -1){
+				// 		value.push(arrTokens[key][i]);
+				// 		mapEstados.set(indice, value);
+				// 		add = true;
+				// 		break;
+				// 	}
+				// 	add = true;
+				// }
 			}
 		}
 	}
 
 	console.log(mapEstados);
-}*/
+}
