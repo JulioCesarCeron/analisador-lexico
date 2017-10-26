@@ -14,9 +14,6 @@ $( document ).ready(function() {
    		getTokens();
   	});
 
-
-
-
 });
 
 function getTokens(){
@@ -25,9 +22,10 @@ function getTokens(){
 		arrTokens.push($(this).text());
 	});
 	$('#table_elements').fadeIn('slow');
+	map(arrTokens);
 	getAlphabet(arrTokens);
 
-	map(arrTokens);
+	
 }
 
 function getAlphabet(arrTokens){
@@ -51,26 +49,17 @@ function formatTable(alphabet, arrTokens){
 		$(".table-alphabet thead tr").append("<th>" + alphabet[i] + "</th>");	
 	}
 
-
-
-
 	$(".table-alphabet tbody").html("");
 	var q = 0;
 	var nextQ = 1;
-	for (var i = 0; i < arrTokens.length; i++) {
-		for(var row = 0; row <= arrTokens[i].length; row++) {
-				if(row != arrTokens[i].length) {
-					$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + row + '><td>q' + q++ + '</td></tr>');
-				} else {
-					$(".table-alphabet tbody").append('<tr class=element-' + i + '-row-' + row + '><td>q' + q++ + '*</td></tr>');
-				}
-			// for (var col = 0; col < alphabet.length; col++) {
-			// 	if (alphabet[col] == arrTokens[i][row]){
-			// 		$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + nextQ++ + '</td>');		
-			// 	} else {
-			// 		$(".element-" + i + "-row-" + row).append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
-			// 	}
-			// }
+	for (var [indice, value] of mapEstados) {
+		$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '</td></tr>');
+		for (var col = 0; col < alphabet.length; col++) {
+			if (value.indexOf(alphabet[col]) != -1){
+				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + nextQ++ + '</td>');		
+			} else {
+				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
+			}
 		}
 	}
 	
@@ -103,21 +92,7 @@ function map(arrTokens) {
 					mapEstados.get(i).push(arrTokens[key][i]);
 					add = true;
 				}
-				
-				// for (var [indice, value] of mapEstados){
-				// 	console.log("entrou bodega ", indice);
-				// 	console.log("valor ", arrTokens[key][i]);
-				// 	if (value.indexOf(arrTokens[key][i]) == -1){
-				// 		value.push(arrTokens[key][i]);
-				// 		mapEstados.set(indice, value);
-				// 		add = true;
-				// 		break;
-				// 	}
-				// 	add = true;
-				// }
 			}
 		}
 	}
-
-	console.log(mapEstados);
 }
