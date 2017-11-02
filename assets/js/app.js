@@ -41,7 +41,7 @@ function getAlphabet(arrTokens){
 }
 
 function formatTable(alphabet, arrTokens){
-
+	console.log(mapEstados);
 	$(".table-alphabet thead tr").html("");
 	$(".table-alphabet thead tr").append("<th>#</th>")
 	alphabet.sort();
@@ -53,14 +53,19 @@ function formatTable(alphabet, arrTokens){
 	var q = 0;
 	var nextQ = 1;
 	for (var [indice, value] of mapEstados) {
-		$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '</td></tr>');
+		if (value == "*") {
+			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + ' ' + value + '</td></tr>');	
+		} else {
+			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '</td></tr>');
+		}
 		for (var col = 0; col < alphabet.length; col++) {
 			if (value.indexOf(alphabet[col]) != -1){
-				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + nextQ++ + '</td>');		
+				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + value[value.indexOf(alphabet[col]) + 1] + '</td>');		
 			} else {
 				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
 			}
 		}
+		nextQ++;
 	}
 	
 	$('.select2-selection__choice__remove').click( function() {
@@ -74,22 +79,27 @@ function formatTable(alphabet, arrTokens){
 var mapEstados = new Map();
 
 function map(arrTokens) {
+	mapEstados = new Map();
 	var q = 0;
+	var v = 1;
 	var simbols = [];
 	var add = true;
-	for(var key in arrTokens){
-		console.log(key);
+	for(var key in arrTokens) {
 		if (key > 0){
-	 		add = false;
+			add = false;
 	 	}
 		for(i = 0; i < arrTokens[key].length; i++){
 			if (add) {
-				console.log("entrou if ");
-				mapEstados.set(q++, [arrTokens[key][i]]);
+				if (i == arrTokens[key].length - 1) {
+					mapEstados.set(q++, [arrTokens[key][i], v++]);
+					mapEstados.set(q++, "*");
+				} else {
+					mapEstados.set(q++, [arrTokens[key][i], v++]);
+				}
+				
 			} else {
-				console.log("entrou else ");
 				if (mapEstados.get(i).indexOf(arrTokens[key][i]) == -1){
-					mapEstados.get(i).push(arrTokens[key][i]);
+					mapEstados.get(i).push(arrTokens[key][i], v++);
 					add = true;
 				}
 			}
