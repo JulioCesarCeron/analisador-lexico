@@ -76,9 +76,10 @@ function formatTable(alphabet, arrTokens){
 }
 
 
-var mapEstados = new Map();
+var mapEstados;
 
 function map(arrTokens) {
+	console.log(arrTokens);
 	mapEstados = new Map();
 	var q = 0;
 	var v = 1;
@@ -92,14 +93,21 @@ function map(arrTokens) {
 			if (add) {
 				if (i == arrTokens[key].length - 1) {
 					mapEstados.set(q++, [arrTokens[key][i], v++]);
-					mapEstados.set(q++, "*");
+					mapEstados.set(q++, ["*"]);
 				} else {
 					mapEstados.set(q++, [arrTokens[key][i], v++]);
 				}
-				
 			} else {
+				//console.log("teste " + mapEstados.get(i));
+				//console.log("arraytokens " + arrTokens[key][i]);
 				if (mapEstados.get(i).indexOf(arrTokens[key][i]) == -1){
-					mapEstados.get(i).push(arrTokens[key][i], v++);
+					if (i == arrTokens[key].length - 1) {
+						mapEstados.get(i).push(arrTokens[key][i], v++);
+						mapEstados.set(q++, ["*"]);
+					} else {
+						mapEstados.get(i).push(arrTokens[key][i], v++);
+					}
+					//mapEstados.get(i).push(arrTokens[key][i], v++);
 					add = true;
 				}
 			}
