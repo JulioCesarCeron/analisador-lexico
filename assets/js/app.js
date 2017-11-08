@@ -1,9 +1,9 @@
 $( document ).ready(function() {
+	//input tag
     $('#tokens').select2({
     	theme: "bootstrap",
     	width: "none",
     	insertTag: function (data, tag) {
-	    	// Insert the tag at the end of the results
 	    	data.push(tag);
 	  	},
 	  	tags: true,
@@ -23,9 +23,7 @@ function getTokens(){
 	});
 	$('#table_elements').fadeIn('slow');
 	map(arrTokens);
-	getAlphabet(arrTokens);
-
-	
+	getAlphabet(arrTokens);	
 }
 
 function getAlphabet(arrTokens){
@@ -53,8 +51,8 @@ function formatTable(alphabet, arrTokens){
 	var q = 0;
 	var nextQ = 1;
 	for (var [indice, value] of mapEstados) {
-		if (value == "*") {
-			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + ' ' + value + '</td></tr>');	
+		if (value.indexOf("*") != -1) {
+			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '*</td></tr>');	
 		} else {
 			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '</td></tr>');
 		}
@@ -79,7 +77,6 @@ function formatTable(alphabet, arrTokens){
 var mapEstados;
 
 function map(arrTokens) {
-	console.log(arrTokens);
 	mapEstados = new Map();
 	var q = 0;
 	var v = 1;
@@ -98,17 +95,19 @@ function map(arrTokens) {
 					mapEstados.set(q++, [arrTokens[key][i], v++]);
 				}
 			} else {
-				//console.log("teste " + mapEstados.get(i));
-				//console.log("arraytokens " + arrTokens[key][i]);
 				if (mapEstados.get(i).indexOf(arrTokens[key][i]) == -1){
 					if (i == arrTokens[key].length - 1) {
 						mapEstados.get(i).push(arrTokens[key][i], v++);
+						// mapEstados.get(i).push(["*"], v++);
 						mapEstados.set(q++, ["*"]);
 					} else {
 						mapEstados.get(i).push(arrTokens[key][i], v++);
 					}
-					//mapEstados.get(i).push(arrTokens[key][i], v++);
 					add = true;
+				} else {
+					if (i == arrTokens[key].length - 1) {
+						mapEstados.get(i+1).push("*");
+					}
 				}
 			}
 		}
