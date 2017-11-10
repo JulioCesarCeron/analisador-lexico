@@ -22,8 +22,8 @@ function getTokens(){
 		arrTokens.push($(this).text());
 	});
 	$('#table_elements').fadeIn('slow');
-	//map(arrTokens);
-	//getAlphabet(arrTokens);	
+	map(arrTokens);
+	getAlphabet(arrTokens);	
 }
 
 function getAlphabet(arrTokens){
@@ -65,6 +65,8 @@ function formatTable(alphabet, arrTokens){
 		}
 		nextQ++;
 	}
+
+	$(".table-alphabet tbody").append('<tr><td style="padding: 0;"></td></tr>');
 	
 	$('.select2-selection__choice__remove').click( function() {
 		setTimeout(function() { 
@@ -79,44 +81,34 @@ var mapEstados;
 function map(arrTokens) {
 	mapEstados = new Map();
 	var q = 0;
-	var v = 1;
+	var proximoEstado = 1;
 	var simbols = [];
 	var add = true;
 	var ultimoEstado;
 	for(var key in arrTokens) {
 		if (key > 0){
 			add = false;
-		 }
-		 console.log(arrTokens[key]);
+		}
+		var estadoAtual = 0;
 		for(i = 0; i < arrTokens[key].length; i++){
 			if (add) {
 				if (i == arrTokens[key].length - 1) {
-					mapEstados.set(q++, [arrTokens[key][i], v++]);
+					mapEstados.set(q++, [arrTokens[key][i], proximoEstado++]);
 					mapEstados.set(q++, ["*"]);
 				} else {
-					mapEstados.set(q++, [arrTokens[key][i], v++]);
+					mapEstados.set(q++, [arrTokens[key][i], proximoEstado++]);
 				}
 			} else {
-				if (mapEstados.get(i).indexOf(arrTokens[key][i]) == -1){
+				if (mapEstados.get(estadoAtual).indexOf(arrTokens[key][i]) == -1){
 					if (i == arrTokens[key].length - 1) {
-						console.log("ultimo estado " + ultimoEstado);
-						if ((typeof ultimoEstado) == "number"){
-							mapEstados.get(ultimoEstado).push(arrTokens[key][i], v++);
-						} else {
-							mapEstados.get(i).push(arrTokens[key][i], v++);
-						}
-						console.log("teste i " + i);
-						console.log("teste q " + q);
+						mapEstados.get(estadoAtual).push(arrTokens[key][i], proximoEstado++);
 						mapEstados.set(q++, ["*"]);
 					} else {
-						mapEstados.get(i).push(arrTokens[key][i], v++);
+						mapEstados.get(estadoAtual).push(arrTokens[key][i], proximoEstado++);
 					}
 					add = true;
 				} else {
-					console.log("i", i);
-					console.log("key", key);
-					console.log("valor " + arrTokens[key][(i + 1)]);
-						 = arrTokens[key][i];
+					estadoAtual = mapEstados.get(i)[mapEstados.get(i).indexOf(arrTokens[key][i]) + 1];
 					if (i == arrTokens[key].length - 1) {
 						mapEstados.get(i+1).push("*");
 					}
@@ -125,34 +117,3 @@ function map(arrTokens) {
 		}
 	}
 }
-
-function Node(data) {
-    this.data = data;
-    this.parent = null;
-    this.children = [];
-}
-
-function Tree(data) {
-    var node = new Node(data);
-    this._root = node;
-}
-
-var tree = new Tree('one');
-
-tree._root.children.push(new Node('two'));
-tree._root.children[0].parent = tree;
-
-tree._root.children.push(new Node('three'));
-tree._root.children[1].parent = tree;
-
-tree._root.children.push(new Node('four'));
-tree._root.children[2].parent = tree;
-
-tree._root.children[0].children.push(new Node('five'));
-tree._root.children[0].children[0].parent = tree._root.children[0];
-
-tree._root.children[0].children.push(new Node('six'));
-tree._root.children[0].children[1].parent = tree._root.children[0];
-
-tree._root.children[2].children.push(new Node('seven'));
-tree._root.children[2].children[0].parent = tree._root.children[2];
