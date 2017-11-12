@@ -12,9 +12,13 @@ $( document ).ready(function() {
 
 	$('#tokens').change(function(){
    		getTokens();
-  	});
-
+	});
+	  
+	validateTokens();
 });
+var validateTeste;
+var nextState;
+var lastState;
 
 function getTokens(){
   	arrTokens = [];
@@ -52,15 +56,15 @@ function formatTable(alphabet, arrTokens){
 	var nextQ = 1;
 	for (var [indice, value] of mapEstados) {
 		if (value.indexOf("*") != -1) {
-			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '*</td></tr>');	
+			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row><td>q' + indice + '*</td></tr>');	
 		} else {
-			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row-><td>q' + indice + '</td></tr>');
+			$(".table-alphabet tbody").append('<tr class=element-' + indice + '-row><td>q' + indice + '</td></tr>');
 		}
 		for (var col = 0; col < alphabet.length; col++) {
 			if (value.indexOf(alphabet[col]) != -1){
-				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '">q' + value[value.indexOf(alphabet[col]) + 1] + '</td>');		
+				$(".element-" + indice + "-row").append('<td class="table-bordered symbol-' + alphabet[col] + '">q' + value[value.indexOf(alphabet[col]) + 1] + '</td>');		
 			} else {
-				$(".element-" + indice + "-row-").append('<td class="table-bordered simbol-' + alphabet[col] + '"></td>');		
+				$(".element-" + indice + "-row").append('<td class="table-bordered symbol-' + alphabet[col] + '"></td>');		
 			}
 		}
 		nextQ++;
@@ -82,7 +86,6 @@ function map(arrTokens) {
 	mapEstados = new Map();
 	var q = 0;
 	var proximoEstado = 1;
-	var simbols = [];
 	var add = true;
 	var ultimoEstado;
 	for(var key in arrTokens) {
@@ -116,4 +119,38 @@ function map(arrTokens) {
 			}
 		}
 	}
+}
+
+function validateTokens(){
+	$('#inputValidate').keyup(function () {
+		var symbol = $(this).val(); 
+		
+		if (symbol[symbol.length-1] == " "){
+			
+		} else { 
+			var fieldTable = $('.element-' + (symbol.length - 1) + '-row .symbol-' + symbol[symbol.length-1]).html();
+			console.log("teste", fieldTable)
+			if (fieldTable || fieldTable == 0) {
+				nextState = (fieldTable[fieldTable.length - 1]);
+			}	
+
+
+
+			if (nextState) {
+				nextState--;
+				$('tbody tr').removeClass('success wrong');
+				$('td').removeClass('wrong selected success selectedWrong');
+				$('.element-' + nextState + '-row').addClass('success');
+				$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length-1]).addClass('selected');
+				$('.symbol-' + symbol[symbol.length-1]).addClass('success');	
+			} else {
+				$('tbody tr').removeClass('success wrong selected selectedWrong');
+				$('.element-' + lastState + '-row').addClass('wrong');
+				$('td').removeClass('success wrong selected selectedWrong');
+				$('.symbol-' + symbol[symbol.length-1]).addClass('wrong');
+				$('.element-' + lastState + '-row > .symbol-' + symbol[symbol.length-1]).addClass('selectedWrong');
+			}
+		}
+		lastState = nextState;
+	});
 }

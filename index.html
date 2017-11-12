@@ -5,23 +5,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>Analisador Léxico</title>
 		<link rel="stylesheet" href="assets/css/bootswatch-paper.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
 		<link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
 		<link rel="stylesheet" href="node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css">
 	</head>
 	<body>
 	<header class="content">
 		<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-							<a class="navbar-brand" href="#">Analizador Léxico</a>
-					</div>
-
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="#">Julio Cesar Ceron</a></li>
-							</ul>
-					</div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+						<a class="navbar-brand" href="#">Analisador Léxico</a>
 				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="#">Julio Cesar Ceron</a></li>
+						</ul>
+				</div>
+			</div>
 		</nav>
 	</header>
 
@@ -29,26 +30,26 @@
 		<div class="col-lg-3">
 			<div class="well bs-component">
 				<form class="form-horizontal well">
-						<fieldset>
-							<legend>TOKENS</legend>
-						<div class="form-group">
-							<select class="form-control" id="tokens" multiple="multiple">
-							</select>
-						</div>
-						</fieldset>
+					<fieldset>
+						<legend>TOKENS</legend>
+					<div class="form-group">
+						<select class="form-control" id="tokens" multiple="multiple">
+						</select>
+					</div>
+					</fieldset>
 				</form>
 			</div>
 		</div>
 		
 		<div class="col-lg-9">
 			<div class="form-group">
-				<input type="text" class="form-control" id="inputDefault" placeholder="validar token">
+				<input type="text" class="form-control" id="inputValidate" placeholder="validar token">
 			</div>
 		</div>
 
 		<div class="col-lg-9" id="table_elements">
 			<div class="well bs-component table-responsive">
-				<table class="table table table-hover table-hover table-alphabet">
+				<!-- <table class="table table table-hover table-hover table-alphabet">
 						<thead>
 							<tr>
 							<th>#</th>
@@ -57,7 +58,13 @@
 		 		 	<tbody>
 		 		 		
 					</tbody>
-				</table> 
+				</table> -->
+				<table class="table table table-hover table-hover table-alphabet">
+						<thead>
+							<tr><th>#</th><th>a</th><th>b</th><th>c</th><th>d</th></tr>
+						</thead>
+		 		 	<tbody><tr class="element-0-row"><td>q0</td><td class="table-bordered symbol-a">q1</td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td></tr><tr class="element-1-row"><td>q1</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b">q2</td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td></tr><tr class="element-2-row"><td>q2</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c">q3</td><td class="table-bordered symbol-d"></td></tr><tr class="element-3-row"><td>q3</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d">q4</td></tr><tr class="element-4-row"><td>q4*</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td></tr><tr><td style="padding: 0;"></td></tr></tbody>
+				</table>
 			</div>
 		</div>
 
