@@ -1,0 +1,22 @@
+.table > thead > tr > td.wrong,
+.table > tbody > tr > td.wrong,
+.table > tfoot > tr > td.wrong,
+.table > thead > tr > th.wrong,
+.table > tbody > tr > th.wrong,
+.table > tfoot > tr > th.wrong,
+.table > thead > tr.wrong > td,
+.table > tbody > tr.wrong > td,
+.table > tfoot > tr.wrong > td,
+.table > thead > tr.wrong > th,
+.table > tbody > tr.wrong > th,
+.table > tfoot > tr.wrong > th {
+  background-color: #f9bdbb;
+}
+
+.selected {
+    background: #c9d8c3!important;
+}
+
+.selectedWrong {
+    background: red!important;
+}
