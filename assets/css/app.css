@@ -14,9 +14,22 @@
 }
 
 .selected {
-    background: #c9d8c3!important;
+    background: #c9dcc1!important;
 }
 
 .selectedWrong {
-    background: red!important;
+    background: #ca9998!important;
+}
+
+#validated-tokens {
+    display: none;
+}
+
+#validated-tokens li {
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.list-group li{
+    border: none;
 }

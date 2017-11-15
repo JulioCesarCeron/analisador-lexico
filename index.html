@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Analisador Léxico</title>
-		<link rel="stylesheet" href="assets/css/bootswatch-paper.min.css">
-		<link rel="stylesheet" href="assets/css/app.css">
-		<link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
-		<link rel="stylesheet" href="node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css">
-	</head>
-	<body>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Analisador Léxico</title>
+	<link rel="stylesheet" href="assets/css/bootswatch-paper.min.css">
+	<link rel="stylesheet" href="assets/css/app.css">
+	<link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
+	<link rel="stylesheet" href="node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css">
+	<link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/styles/alert-bangtidy.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/styles/alert-blackgloss.min.css">
+	
+</head>
+
+<body>
 	<header class="content">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
-						<a class="navbar-brand" href="#">Analisador Léxico</a>
+					<a class="navbar-brand" href="#">Analisador Léxico</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#">Julio Cesar Ceron</a></li>
-						</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">Julio Cesar Ceron</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -32,15 +41,22 @@
 				<form class="form-horizontal well">
 					<fieldset>
 						<legend>TOKENS</legend>
-					<div class="form-group">
-						<select class="form-control" id="tokens" multiple="multiple">
-						</select>
-					</div>
+						<div class="form-group">
+							<select class="form-control" id="tokens" multiple="multiple">
+							</select>
+						</div>
 					</fieldset>
 				</form>
+				<div class="container-fluid" id="validated-tokens">
+					<fieldset>
+						<legend>TOKENS VÁLIDOS</legend>
+					</fieldset>
+					<ul class="list-group">
+					</ul>
+				</div>
 			</div>
 		</div>
-		
+
 		<div class="col-lg-9">
 			<div class="form-group">
 				<input type="text" class="form-control" id="inputValidate" placeholder="validar token">
@@ -49,21 +65,14 @@
 
 		<div class="col-lg-9" id="table_elements">
 			<div class="well bs-component table-responsive">
-				<!-- <table class="table table table-hover table-hover table-alphabet">
-						<thead>
-							<tr>
-							<th>#</th>
-							</tr>
-						</thead>
-		 		 	<tbody>
-		 		 		
-					</tbody>
-				</table> -->
 				<table class="table table table-hover table-hover table-alphabet">
 					<thead>
-						<tr><th>#</th><th>a</th><th>b</th><th>c</th><th>d</th><th>s</th></tr>
+						<tr>
+							<th>#</th>
+						</tr>
 					</thead>
-					<tbody><tr class="element-0-row"><td>q0</td><td class="table-bordered symbol-a">q1</td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td><td class="table-bordered symbol-s">q5</td></tr><tr class="element-1-row"><td>q1</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b">q2</td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td><td class="table-bordered symbol-s"></td></tr><tr class="element-2-row"><td>q2</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c">q3</td><td class="table-bordered symbol-d">q7</td><td class="table-bordered symbol-s"></td></tr><tr class="element-3-row"><td>q3</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d">q4</td><td class="table-bordered symbol-s"></td></tr><tr class="element-4-row"><td>q4*</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td><td class="table-bordered symbol-s"></td></tr><tr class="element-5-row"><td>q5</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d">q6</td><td class="table-bordered symbol-s"></td></tr><tr class="element-6-row"><td>q6*</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td><td class="table-bordered symbol-s"></td></tr><tr class="element-7-row"><td>q7*</td><td class="table-bordered symbol-a"></td><td class="table-bordered symbol-b"></td><td class="table-bordered symbol-c"></td><td class="table-bordered symbol-d"></td><td class="table-bordered symbol-s"></td></tr><tr><td style="padding: 0;"></td></tr></tbody>
+					<tbody>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -75,8 +84,10 @@
 		<script src="node_modules/select2/dist/js/select2.min.js"></script>
 		<script src="assets/js/app.js"></script>
 		<script type="text/javascript">
-				$('select').select2();
+			$('select').select2();
 		</script>
+		<script src="node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
 	</footer>
-	</body>
+</body>
+
 </html>

@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 	//input tag
 	$('#tokens').select2({
@@ -135,14 +136,14 @@ function validateTokens() {
 		} else {
 			if (symbol.length == 0) {
 				resetValidate();
-			} else if (symbol[symbol.length - 1] == " "){
+			} else if (symbol[symbol.length - 1] == " " || event.keyCode == 13){
 				var finalState = $('.element-' + nextState + '-row').find('td:first').html();
 				if (finalState.indexOf("*") != -1){
 					resetValidate();
-					console.log("token encontrado: " + symbol);
+					$.notify("Hello World");
+					validatedToken(symbol);
 				} else {
 					resetValidate();
-					console.log("não foi possível encontrar o token: " + symbol);
 				}
 			} else {
 				verifySymbol(symbol);
@@ -163,7 +164,7 @@ function verifySymbol(symbol) {
 			$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selected');
 			$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
 			lastState = nextState;
-			nextState = parseInt(fieldTable[fieldTable.length - 1]);
+			nextState = parseInt(fieldTable.replace("q", ""));
 		} else {
 			$('tbody tr').removeClass('success wrong selected selectedWrong');
 			$('td').removeClass('success wrong selected selectedWrong');
@@ -178,7 +179,6 @@ function verifySymbol(symbol) {
 }
 
 function backtrack(symbol) {
-	console.log("backspace")
 	if (lastLength > symbol.length || symbol.length == 0){
 		block = false;
 	}
@@ -206,7 +206,8 @@ function backtrack(symbol) {
 	
 		if (classParent != undefined){
 			var state = $('.' + classParent + ' td:first').html();
-			lastState = state[state.length - 1];
+			// lastState = state[state.length - 1];
+			lastState = parseInt(state.replace("q", ""));
 		} else {
 			lastState = 0;
 		}	
@@ -221,3 +222,13 @@ function resetValidate(){
 	lastState = 0;
 	block = false;
 }
+
+function validatedToken(symbol){
+	$('#validated-tokens').css("display", "block");
+	$('.list-group').append('<li class="list-group-item"><a href="javascript:void(0)" class="badge btn btn-danger btn-xs"><i class="fa fa-times" aria-hidden="true"></i></a>' + symbol + '</li>')
+}
+
+$(document).on('click','.btn-danger', function(e){
+	e.preventDefault();
+	$(this).parent().remove();
+}) 
