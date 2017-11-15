@@ -1,5 +1,3 @@
-$.fx = null;
-
 $(document).ready(function () {
 	//input tag
 	$('#tokens').select2({
@@ -21,7 +19,8 @@ $(document).ready(function () {
 var validateTeste;
 var nextState = 0;
 var lastState;
-var block = true;
+var block = false;
+var lastLength;
 var mapEstados;
 
 
@@ -140,8 +139,10 @@ function validateTokens() {
 				var finalState = $('.element-' + nextState + '-row').find('td:first').html();
 				if (finalState.indexOf("*") != -1){
 					resetValidate();
+					console.log("token encontrado: " + symbol);
 				} else {
 					resetValidate();
+					console.log("não foi possível encontrar o token: " + symbol);
 				}
 			} else {
 				verifySymbol(symbol);
@@ -152,71 +153,64 @@ function validateTokens() {
 }
 
 function verifySymbol(symbol) {
-	var fieldTable = $('.element-' + nextState + '-row .symbol-' + symbol[symbol.length - 1]).html();
+	if (!block) {
+		var fieldTable = $('.element-' + nextState + '-row .symbol-' + symbol[symbol.length - 1]).html();
 
-	if (fieldTable) {
-		$('tbody tr').removeClass('success wrong');
-		$('td').removeClass('wrong selected success selectedWrong');
-		$('.element-' + nextState + '-row').addClass('success');
-		$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selected');
-		$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
-		lastState = nextState;
-		nextState = parseInt(fieldTable[fieldTable.length - 1]);
-	} else {
-		$('tbody tr').removeClass('success wrong selected selectedWrong');
-		$('td').removeClass('success wrong selected selectedWrong');
-		$('.element-' + nextState + '-row').addClass('wrong');
-		$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selectedWrong');
-		$('.symbol-' + symbol[symbol.length - 1]).addClass('wrong');
+		if (fieldTable) {
+			$('tbody tr').removeClass('success wrong selected selectedWrong');
+			$('td').removeClass('wrong selected success selectedWrong');
+			$('.element-' + nextState + '-row').addClass('success');
+			$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selected');
+			$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
+			lastState = nextState;
+			nextState = parseInt(fieldTable[fieldTable.length - 1]);
+		} else {
+			$('tbody tr').removeClass('success wrong selected selectedWrong');
+			$('td').removeClass('success wrong selected selectedWrong');
+			$('.element-' + nextState + '-row').addClass('wrong');
+			$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selectedWrong');
+			$('.symbol-' + symbol[symbol.length - 1]).addClass('wrong');
+			block = true;
+			lastLength = symbol.length;
+			lastState = nextState;
+		}
 	}
 }
 
 function backtrack(symbol) {
-	var classParent;
-	if (lastState > 0) {
-		classParent = 	$('.table-alphabet .table-bordered').filter(function() {
-							return $(this).text() == 'q' + lastState;
-						})["0"].parentNode.className;
-	} else {
-		classParent = "element-0-row";
+	console.log("backspace")
+	if (lastLength > symbol.length || symbol.length == 0){
+		block = false;
 	}
 
-	$('td').removeClass('selected success');
-	$('tbody tr').removeClass('success selected ');
-
-	$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
-	$('.' + classParent).addClass('success');
-	console.log(lastState);
-	$('.table-alphabet .table-bordered').filter(function() {
-		return $(this).text() == 'q' + lastState;
-	}).addClass('selected');
-
-	if (classParent != undefined){
-		var state = $('.' + classParent + ' td:first').html();
-		console.log("state", state);
-		lastState = state[state.length - 1];
-		console.log("lastState", lastState);
-	} else {
-		lastState = 0;
-	}
-
-	/*var fieldTable = $('.element-' + nextState + '-row .symbol-' + symbol[symbol.length - 1]).html();
-
-	if (fieldTable) {
-		$('tbody tr').removeClass('success wrong');
-		$('td').removeClass('wrong selected success selectedWrong');
-		$('.element-' + nextState + '-row').addClass('success');
-		$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selected');
-		$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
-		lastState = nextState;
-		nextState = parseInt(fieldTable[fieldTable.length - 1]);
-	} else {
+	if (!block) {
+		var classParent;
+		if (lastState > 0) {
+			classParent = 	$('.table-alphabet .table-bordered').filter(function() {
+								return $(this).text() == 'q' + lastState;
+							})["0"].parentNode.className;
+		} else {
+			classParent = "element-0-row";
+		}
+	
 		$('tbody tr').removeClass('success wrong selected selectedWrong');
 		$('td').removeClass('success wrong selected selectedWrong');
-		$('.element-' + nextState + '-row').addClass('wrong');
-		$('.element-' + nextState + '-row > .symbol-' + symbol[symbol.length - 1]).addClass('selectedWrong');
-		$('.symbol-' + symbol[symbol.length - 1]).addClass('wrong');
-	}*/
+	
+		$('.symbol-' + symbol[symbol.length - 1]).addClass('success');
+		$('.' + classParent).addClass('success');
+		$('.table-alphabet .table-bordered').filter(function() {
+			return $(this).text() == 'q' + lastState;
+		}).addClass('selected');
+	
+		nextState = lastState;
+	
+		if (classParent != undefined){
+			var state = $('.' + classParent + ' td:first').html();
+			lastState = state[state.length - 1];
+		} else {
+			lastState = 0;
+		}	
+	}	
 }
 
 function resetValidate(){
@@ -225,4 +219,5 @@ function resetValidate(){
 	$('td').removeClass('success wrong selected selectedWrong');
 	nextState = 0;
 	lastState = 0;
+	block = false;
 }
