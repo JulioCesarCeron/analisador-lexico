@@ -16,6 +16,7 @@ $(document).ready(function () {
 	});
 
 	validateTokens();
+	toastOptions();
 });
 var validateTeste;
 var nextState = 0;
@@ -140,10 +141,11 @@ function validateTokens() {
 				var finalState = $('.element-' + nextState + '-row').find('td:first').html();
 				if (finalState.indexOf("*") != -1){
 					resetValidate();
-					$.notify("Hello World");
+					toastr.success('Token "' + symbol + '" válido')
 					validatedToken(symbol);
 				} else {
 					resetValidate();
+					toastr.error('Token "' + symbol + '" inválido')
 				}
 			} else {
 				verifySymbol(symbol);
@@ -232,3 +234,23 @@ $(document).on('click','.btn-danger', function(e){
 	e.preventDefault();
 	$(this).parent().remove();
 }) 
+
+function toastOptions(){
+	toastr.options = {
+		"closeButton": false,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": false,
+		"positionClass": "toast-top-center",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "5000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	}
+}
