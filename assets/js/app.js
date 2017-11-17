@@ -139,7 +139,8 @@ function validateTokens() {
 				resetValidate();
 			} else if (symbol[symbol.length - 1] == " " || event.keyCode == 13){
 				var finalState = $('.element-' + nextState + '-row').find('td:first').html();
-				if (finalState.indexOf("*") != -1){
+				console.log("block", block);
+				if (finalState.indexOf("*") != -1 && !block){
 					resetValidate();
 					toastr.success('Token "' + symbol + '" válido')
 					validatedToken(symbol);
