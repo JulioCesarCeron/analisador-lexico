@@ -12,4 +12,4 @@ https://juliocesarceron.github.io/analisador-lexico/
 
 ## Técnologias
 
-Projeto foi inteiramente desenvolvido em javascript, utlizando a biblioteca jQquery na versão 3.2.1
+Projeto foi inteiramente desenvolvido em javascript, utilizando a biblioteca jQquery na versão 3.2.1
